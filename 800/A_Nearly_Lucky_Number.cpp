@@ -1,33 +1,93 @@
+//                                        ॐ हनुमंते नमः
 #include <bits/stdc++.h>
 #define int long long int
-#define tc while (t--)
-#define in cin >>
-#define out cout <<
-#define ret0 return 0;
+#define countOnBit __builtin_popcountll
+#define clz __builtin_clzll
+#define ctz __builtin_ctzll
 using namespace std;
+
+//------------------------- IO simplifier begins -------------------------------
+template <typename T1, typename T2>
+istream &operator>>(istream &in, pair<T1, T2> &p) { return in >> p.first >> p.second; }
+template <typename T>
+istream &operator>>(istream &in, vector<T> &v)
+{
+    for (auto &x : v)
+        in >> x;
+    return in;
+}
+template <typename T1, typename T2>
+ostream &operator<<(ostream &out, const pair<T1, T2> &p) { return out << p.first << ' ' << p.second; }
+template <typename T>
+ostream &operator<<(ostream &out, const vector<T> &v)
+{
+    for (const auto &x : v)
+        out << x << ' ';
+    return out;
+}
+//------------------------- IO simplifier ends ----------------------------------
+
+//------------------------ GCD Implementation begins -------------------------
+int gcd(int a, int b)
+{
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+//------------------------ GCD Implementation ends ---------------------------
+
+//------------------------ Seive Implementation begins ------------------------
+vector<bool> isPrime(1e6 + 1, 1);
+void calculatePrime()
+{
+    isPrime[0] = isPrime[1] = 0;
+    for (int i = 2; i * i <= 1e6; i++)
+        if (isPrime[i])
+            for (int j = i * i; j <= 1e6; j += i)
+                isPrime[j] = 0;
+}
+//------------------------ Seive Implementation ends --------------------------
+
+void solve()
+{
+    int n;
+    cin >> n;
+
+    int cnt{0};
+
+    while (n)
+    {
+        if (n % 10 == 4 || n % 10 == 7)
+        {
+            cnt++;
+        }
+        n /= 10;
+    }
+    if (cnt == 0)
+    {
+        cout << "NO" << endl;
+        return;
+    }
+    string s = to_string(cnt);
+
+    for (int i = 0; i < s.size(); i++)
+    {
+        if (s[i] != '4' && s[i] != '7')
+        {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+    cout << "YES" << endl;
+}
 int32_t main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    int t;
-    in t;
-    int c7or4 = 0;
-    while (t != 0)
+    int tc = 1;
+    // cin >> tc;
+    // calculatePrime();
+    while (tc--)
     {
-        if (t % 10 == 7 || t % 10 == 4)
-        {
-            c7or4++;
-        }
-        t = t / 10;
+        solve();
     }
-    if (c7or4 == 4 || c7or4 == 7)
-    {
-        out "YES" << endl;
-    }
-    else
-    {
-        out "NO" << endl;
-    }
-    ret0
+    return 0;
 }

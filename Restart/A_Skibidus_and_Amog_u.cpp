@@ -7,26 +7,23 @@
 using namespace std;
 void solve()
 {
-    int n;
-    cin >> n;
+    string s;
+    cin >> s;
 
-    string s = to_string(n);
+    int n = s.length();
 
-    int m = s.length();
-    int cnt = 0;
-    for (auto &it : s)
+    if (n < 2)
     {
-        if (it != '0')
-            cnt++;
+        cout << s.substr(0, n - 1) + "us" << endl;
     }
-
-    cout << cnt << endl;
-    for (int i = 0; i < m; i++)
+    else if (s[n - 1] == 's' && s[n - 2] == 'u')
     {
-        if (s[i] != '0')
-            cout << (s[i] - '0') * pow(10, m - i - 1) << " ";
+        cout << s.substr(0, n - 2) + "i" << endl;
     }
-    cout << endl;
+    else
+    {
+        cout << s.substr(0, n - 1) + "us" << endl;
+    }
 }
 int32_t main()
 {

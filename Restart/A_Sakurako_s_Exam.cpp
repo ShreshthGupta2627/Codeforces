@@ -4,12 +4,21 @@
 using namespace std;
 void solve()
 {
-    int m, a, b, c;
-    cin >> m >> a >> b >> c;
-
-    int ans = min(a, m) + min(b, m);
-    ans = max(ans, ans + min(2 * m - ans, c));
-    cout << ans << endl;
+    int a, b;
+    cin >> a >> b;
+    if (a % 2 == 0 && b % 2 == 0)
+    {
+        cout << "YES" << endl;
+    }
+    else if (b % 2 != 0 && a % 2 == 0 && a >= 2)
+    {
+        cout << "YES" << endl;
+        4
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
 }
 int32_t main()
 {

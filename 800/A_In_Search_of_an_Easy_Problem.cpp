@@ -20,25 +20,16 @@ void solve()
     int n;
     cin >> n;
 
+    bool f = 0;
     vector<int> v(n);
     for (auto &it : v)
     {
         cin >> it;
+        if (it)
+            f = 1;
     }
 
-    int idxM = max_element(v.begin(), v.end()) - v.begin();
-    int idxm = n - (min_element(v.rbegin(), v.rend()) - v.rbegin()) - 1;
-
-    // cout << idxM << " " << idxm << endl;
-
-    if (idxM < idxm)
-    {
-        cout << idxM + n - 1 - idxm << endl;
-    }
-    else
-    {
-        cout << idxM + n - 1 - idxm - 1 << endl;
-    }
+    cout << ((f == 1) ? "HARD" : "EASY") << endl;
 }
 int32_t main()
 {

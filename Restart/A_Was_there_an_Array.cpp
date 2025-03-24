@@ -9,24 +9,23 @@ void solve()
 {
     int n;
     cin >> n;
+    vector<int> v(n - 2);
 
-    string s = to_string(n);
-
-    int m = s.length();
-    int cnt = 0;
-    for (auto &it : s)
+    for (auto &it : v)
     {
-        if (it != '0')
-            cnt++;
+        cin >> it;
     }
 
-    cout << cnt << endl;
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < n - 4; i++)
     {
-        if (s[i] != '0')
-            cout << (s[i] - '0') * pow(10, m - i - 1) << " ";
+        if (v[i] == 1 && v[i + 1] == 0 && v[i + 2] == 1)
+        {
+            cout << "NO" << endl;
+            return;
+        }
     }
-    cout << endl;
+
+    cout << "YES" << endl;
 }
 int32_t main()
 {

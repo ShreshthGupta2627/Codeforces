@@ -7,31 +7,28 @@
 using namespace std;
 void solve()
 {
-    int n;
-    cin >> n;
+    int i{0}, j{0};
 
-    string s = to_string(n);
-
-    int m = s.length();
-    int cnt = 0;
-    for (auto &it : s)
+    for (int k = 0; k < 5; k++)
     {
-        if (it != '0')
-            cnt++;
+        for (int l = 0; l < 5; l++)
+        {
+            int t;
+            cin >> t;
+
+            if (t)
+            {
+                i = k, j = l;
+            }
+        }
     }
 
-    cout << cnt << endl;
-    for (int i = 0; i < m; i++)
-    {
-        if (s[i] != '0')
-            cout << (s[i] - '0') * pow(10, m - i - 1) << " ";
-    }
-    cout << endl;
+    cout << abs(i - 2) + abs(j - 2) << endl;
 }
 int32_t main()
 {
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
     {
         solve();

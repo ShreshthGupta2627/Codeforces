@@ -17,28 +17,31 @@ int gcd(int a, int b)
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
 
-    vector<int> v(n);
-    for (auto &it : v)
+    vector<int> a(n), b(m);
+
+    for (auto &it : a)
+    {
+        cin >> it;
+    }
+    for (auto &it : b)
     {
         cin >> it;
     }
 
-    int idxM = max_element(v.begin(), v.end()) - v.begin();
-    int idxm = n - (min_element(v.rbegin(), v.rend()) - v.rbegin()) - 1;
-
-    // cout << idxM << " " << idxm << endl;
-
-    if (idxM < idxm)
+    int ans = 0;
+    for (int i = 0; i < n; i++)
     {
-        cout << idxM + n - 1 - idxm << endl;
+        ans = gcd(ans, abs(a[0] - a[i]));
     }
-    else
+
+    for (int i = 0; i < m; i++)
     {
-        cout << idxM + n - 1 - idxm - 1 << endl;
+        cout << gcd(b[i] + a[0], ans) << " ";
     }
+    cout << endl;
 }
 int32_t main()
 {

@@ -7,26 +7,20 @@
 using namespace std;
 void solve()
 {
-    int n;
-    cin >> n;
-
-    string s = to_string(n);
-
-    int m = s.length();
-    int cnt = 0;
-    for (auto &it : s)
+    int a, b;
+    cin >> a >> b;
+    if (a == b)
     {
-        if (it != '0')
-            cnt++;
+        cout << "No" << endl;
     }
-
-    cout << cnt << endl;
-    for (int i = 0; i < m; i++)
+    else if ((a > b && (a - b - 8) % 9 == 0) || (b - a) == 1)
     {
-        if (s[i] != '0')
-            cout << (s[i] - '0') * pow(10, m - i - 1) << " ";
+        cout << "Yes" << endl;
     }
-    cout << endl;
+    else
+    {
+        cout << "No" << endl;
+    }
 }
 int32_t main()
 {

@@ -4,12 +4,21 @@
 using namespace std;
 void solve()
 {
-    int m, a, b, c;
-    cin >> m >> a >> b >> c;
+    int a, b;
+    cin >> a >> b;
 
-    int ans = min(a, m) + min(b, m);
-    ans = max(ans, ans + min(2 * m - ans, c));
-    cout << ans << endl;
+    // vector<int> v;
+
+    // int cnt = 1;
+
+    // while (a <= b)
+    // {
+    //     v.push_back(a);
+    //     a += cnt;
+    //     cnt++;
+    // }
+
+    cout << floor((-1 + sqrt(1 + 8 * (b - a))) / 2) + 1 << endl;
 }
 int32_t main()
 {

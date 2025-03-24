@@ -10,28 +10,30 @@ void solve()
     int n;
     cin >> n;
 
-    string s = to_string(n);
-
-    int m = s.length();
-    int cnt = 0;
-    for (auto &it : s)
+    int ans{0};
+    for (int i = 0; i < n; i++)
     {
-        if (it != '0')
-            cnt++;
+        string s;
+        cin >> s;
+
+        if (s[0] == 'I')
+            ans += 20;
+        else if (s[0] == 'C')
+            ans += 6;
+        else if (s[0] == 'T')
+            ans += 4;
+        else if (s[0] == 'D')
+            ans += 12;
+        else
+            ans += 8;
     }
 
-    cout << cnt << endl;
-    for (int i = 0; i < m; i++)
-    {
-        if (s[i] != '0')
-            cout << (s[i] - '0') * pow(10, m - i - 1) << " ";
-    }
-    cout << endl;
+    cout << ans << endl;
 }
 int32_t main()
 {
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
     {
         solve();

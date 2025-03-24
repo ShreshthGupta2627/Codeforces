@@ -10,28 +10,29 @@ void solve()
     int n;
     cin >> n;
 
-    string s = to_string(n);
-
-    int m = s.length();
-    int cnt = 0;
-    for (auto &it : s)
+    vector<string> v(n);
+    for (int i = 0; i < n; i++)
     {
-        if (it != '0')
-            cnt++;
+        cin >> v[i];
     }
 
-    cout << cnt << endl;
-    for (int i = 0; i < m; i++)
+    vector<int> ans(n);
+    iota(ans.begin(), ans.end(), 1);
+    sort(ans.begin(), ans.end(), [&](int x, int y)
+         { if (v[x - 1][y - 1] == '1')
+                return( x<y); 
+            return (x > y); });
+
+    for (auto &it : ans)
     {
-        if (s[i] != '0')
-            cout << (s[i] - '0') * pow(10, m - i - 1) << " ";
+        cout << it << " ";
     }
     cout << endl;
 }
 int32_t main()
 {
     int tc = 1;
-    cin >> tc;
+    // cin >> tc;
     while (tc--)
     {
         solve();
