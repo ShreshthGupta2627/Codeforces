@@ -74,51 +74,70 @@ int gcd(int a, int b)
 //------------------------------- GCD Implementation ends ----------------------------------------
 
 //------------------------------- Seive Implementation begins -------------------------------------
-vector<bool> isPrime(1e6 + 1, 1);
+vector<bool> isPrime(1e7 + 1, 1);
+vector<int> primes;
 void calculatePrime()
 {
     isPrime[0] = isPrime[1] = 0;
-    for (int i = 2; i * i <= 1e6; i++)
+    for (int i = 2; i <= 1e7 + 1; i++)
         if (isPrime[i])
-            for (int j = i * i; j <= 1e6; j += i)
+        {
+            primes.push_back(i);
+            for (int j = i * i; j <= 1e7 + 1; j += i)
                 isPrime[j] = 0;
+        }
 }
 //------------------------------- Seive Implementation ends ---------------------------------------
 
+bool chk(int node, vector<vector<int>> &adj, int k)
+{
+    if (node == k)
+    {
+        return 1;
+    }
+
+    for (auto &it : adj[node])
+    {
+        if (chk(it, adj, k))
+            return 1;
+    }
+    return 0;
+}
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n, k;
+    cin >> n >> k;
+    // k--;
 
-    if (m % n != 0)
+    vector<int> v(n - 1);
+    cin >> v;
+
+    vector<vector<int>> adj(n + 1);
+
+    for (int i = 0; i < n - 1; i++)
     {
-        cout << -1 << endl;
-        return;
+        adj[i + 1].push_back(i + v[i] + 1);
+    }
+
+    // int t = 0;
+    // for (auto &it : adj)
+    // {
+    //     cout << t << " -> ";
+    //     for (auto &i : it)
+    //     {
+    //         cout << i << " ";
+    //     }
+    //     t++;
+    //     cout << endl;
+    // }
+
+    if (chk(1, adj, k) == 1)
+    {
+        cout << "YES" << endl;
     }
     else
     {
-        m /= n;
-    }
-
-    int op{0};
-    while (m % 3 == 0)
-    {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
-    }
-
-    if (m == 1)
-    {
-        cout << op << endl;
-    }
-    else
-    {
-        cout << -1 << endl;
+        cout << "NO" << endl;
     }
 }
 int32_t main()

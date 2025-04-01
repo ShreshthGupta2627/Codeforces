@@ -74,52 +74,37 @@ int gcd(int a, int b)
 //------------------------------- GCD Implementation ends ----------------------------------------
 
 //------------------------------- Seive Implementation begins -------------------------------------
-vector<bool> isPrime(1e6 + 1, 1);
+vector<bool> isPrime(1e7 + 1, 1);
+vector<int> primes;
 void calculatePrime()
 {
     isPrime[0] = isPrime[1] = 0;
-    for (int i = 2; i * i <= 1e6; i++)
+    for (int i = 2; i <= 1e7 + 1; i++)
         if (isPrime[i])
-            for (int j = i * i; j <= 1e6; j += i)
+        {
+            primes.push_back(i);
+            for (int j = i * i; j <= 1e7 + 1; j += i)
                 isPrime[j] = 0;
+        }
 }
 //------------------------------- Seive Implementation ends ---------------------------------------
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    string s1, s2;
+    cin >> s1 >> s2;
 
-    if (m % n != 0)
-    {
-        cout << -1 << endl;
-        return;
-    }
-    else
-    {
-        m /= n;
-    }
+    int h1 = stoi(s1.substr(0, 2));
+    int h2 = stoi(s2.substr(0, 2));
+    int m1 = stoi(s1.substr(3));
+    int m2 = stoi(s2.substr(3));
 
-    int op{0};
-    while (m % 3 == 0)
-    {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
-    }
+    string p1 = "0" + to_string((h1 + h2 + (m1 + m2) / 60) / 2);
+    string p2 = "0" + to_string(((m1 + m2) % 60 + (((h1 + h2 + (m1 + m2) / 60)) & 1) * 60) / 2);
 
-    if (m == 1)
-    {
-        cout << op << endl;
-    }
-    else
-    {
-        cout << -1 << endl;
-    }
+    int sz1 = p1.size(), sz2 = p2.size();
+
+    cout << p1[sz1 - 2] << p1[sz1 - 1] << ":" << p2[sz2 - 2] << p2[sz2 - 1] << endl;
 }
 int32_t main()
 {

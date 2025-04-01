@@ -74,51 +74,42 @@ int gcd(int a, int b)
 //------------------------------- GCD Implementation ends ----------------------------------------
 
 //------------------------------- Seive Implementation begins -------------------------------------
-vector<bool> isPrime(1e6 + 1, 1);
+vector<bool> isPrime(1e7 + 1, 1);
+vector<int> primes;
 void calculatePrime()
 {
     isPrime[0] = isPrime[1] = 0;
-    for (int i = 2; i * i <= 1e6; i++)
+    for (int i = 2; i <= 1e7 + 1; i++)
         if (isPrime[i])
-            for (int j = i * i; j <= 1e6; j += i)
+        {
+            primes.push_back(i);
+            for (int j = i * i; j <= 1e7 + 1; j += i)
                 isPrime[j] = 0;
+        }
 }
 //------------------------------- Seive Implementation ends ---------------------------------------
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
 
-    if (m % n != 0)
-    {
-        cout << -1 << endl;
-        return;
-    }
-    else
-    {
-        m /= n;
-    }
+    vector<int> v(n);
+    cin >> v;
 
-    int op{0};
-    while (m % 3 == 0)
-    {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
-    }
+    int extra = 1;
 
-    if (m == 1)
+    for (int i = 0; i < n; i++)
     {
-        cout << op << endl;
-    }
-    else
-    {
-        cout << -1 << endl;
+        if (v[i] % 2 == 0)
+        {
+            cout << v[i] / 2 << endl;
+        }
+        else
+        {
+            cout << (v[i] + extra) / 2 << endl;
+            extra *= -1;
+        }
     }
 }
 int32_t main()

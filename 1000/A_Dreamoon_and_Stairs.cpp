@@ -90,36 +90,16 @@ void solve()
     int n, m;
     cin >> n >> m;
 
-    if (m % n != 0)
+    int even = n / 2, odd = (n & 1) ? 1 : 0;
+    int steps = even + odd;
+    while (steps % m != 0 && even)
     {
-        cout << -1 << endl;
-        return;
-    }
-    else
-    {
-        m /= n;
-    }
-
-    int op{0};
-    while (m % 3 == 0)
-    {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
+        steps++;
+        even--;
+        odd++;
     }
 
-    if (m == 1)
-    {
-        cout << op << endl;
-    }
-    else
-    {
-        cout << -1 << endl;
-    }
+    cout << ((steps % m) ? -1 : steps) << endl;
 }
 int32_t main()
 {

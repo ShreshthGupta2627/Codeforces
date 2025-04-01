@@ -74,52 +74,48 @@ int gcd(int a, int b)
 //------------------------------- GCD Implementation ends ----------------------------------------
 
 //------------------------------- Seive Implementation begins -------------------------------------
-vector<bool> isPrime(1e6 + 1, 1);
+vector<bool> isPrime(1e7 + 1, 1);
+vector<int> primes;
 void calculatePrime()
 {
     isPrime[0] = isPrime[1] = 0;
-    for (int i = 2; i * i <= 1e6; i++)
+    for (int i = 2; i <= 1e7 + 1; i++)
         if (isPrime[i])
-            for (int j = i * i; j <= 1e6; j += i)
+        {
+            primes.push_back(i);
+            for (int j = i * i; j <= 1e7 + 1; j += i)
                 isPrime[j] = 0;
+        }
 }
 //------------------------------- Seive Implementation ends ---------------------------------------
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
 
-    if (m % n != 0)
+    int cnt7 = 0, cnt4 = 0;
+
+    string s = "";
+    for (int i = n / 7; i >= 0; i--)
     {
-        cout << -1 << endl;
-        return;
-    }
-    else
-    {
-        m /= n;
+        if ((n - 7 * i) % 4 == 0)
+        {
+            for (int k = 0; k < (n - 7 * i) / 4; k++)
+            {
+                s += '4';
+            }
+            for (int k = 0; k < i; k++)
+            {
+                s += '7';
+            }
+
+            cout << s << endl;
+            return;
+        }
     }
 
-    int op{0};
-    while (m % 3 == 0)
-    {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
-    }
-
-    if (m == 1)
-    {
-        cout << op << endl;
-    }
-    else
-    {
-        cout << -1 << endl;
-    }
+    cout << -1 << endl;
 }
 int32_t main()
 {

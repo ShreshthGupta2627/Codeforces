@@ -87,44 +87,30 @@ void calculatePrime()
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n, x;
+    cin >> n >> x;
 
-    if (m % n != 0)
-    {
-        cout << -1 << endl;
-        return;
-    }
-    else
-    {
-        m /= n;
-    }
+    vector<int> v(n);
+    cin >> v;
 
-    int op{0};
-    while (m % 3 == 0)
+    sort(v.begin(), v.end(), greater<int>());
+
+    int ans = 0, prev = 0;
+    for (int i = 0; i < n; i++)
     {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
+        if (v[i] * (i + 1 - prev) >= x)
+        {
+            ans++;
+            prev = i + 1;
+        }
     }
 
-    if (m == 1)
-    {
-        cout << op << endl;
-    }
-    else
-    {
-        cout << -1 << endl;
-    }
+    cout << ans << endl;
 }
 int32_t main()
 {
     int tc = 1;
-    // cin >> tc;
+    cin >> tc;
     //   calculatePrime();
     while (tc--)
     {

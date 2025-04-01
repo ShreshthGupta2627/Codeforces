@@ -74,14 +74,18 @@ int gcd(int a, int b)
 //------------------------------- GCD Implementation ends ----------------------------------------
 
 //------------------------------- Seive Implementation begins -------------------------------------
-vector<bool> isPrime(1e6 + 1, 1);
+vector<bool> isPrime(1e7 + 1, 1);
+vector<int> primes;
 void calculatePrime()
 {
     isPrime[0] = isPrime[1] = 0;
-    for (int i = 2; i * i <= 1e6; i++)
+    for (int i = 2; i <= 1e7 + 1; i++)
         if (isPrime[i])
-            for (int j = i * i; j <= 1e6; j += i)
+        {
+            primes.push_back(i);
+            for (int j = i * i; j <= 1e7 + 1; j += i)
                 isPrime[j] = 0;
+        }
 }
 //------------------------------- Seive Implementation ends ---------------------------------------
 
@@ -89,36 +93,101 @@ void solve()
 {
     int n, m;
     cin >> n >> m;
+    vector<vector<int>> v(n, vector<int>(m));
+    cin >> v;
 
-    if (m % n != 0)
-    {
-        cout << -1 << endl;
-        return;
-    }
-    else
-    {
-        m /= n;
-    }
+    vector<int> row(n, 1), col(m, 1);
 
-    int op{0};
-    while (m % 3 == 0)
+    for (int i = 0; i < n; i++)
     {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
+        for (int j = 0; j < m; j++)
+        {
+            if (!v[i][j])
+            {
+                row[i] = 0;
+                col[j] = 0;
+            }
+        }
     }
 
-    if (m == 1)
+    vector<vector<int>> c(n, vector<int>(m, 1));
+
+    for (int i = 0; i < n; i++)
     {
-        cout << op << endl;
+        if (!row[i])
+        {
+            for (int j = 0; j < m; j++)
+            {
+                c[i][j] = 0;
+            }
+        }
     }
-    else
+
+    for (int i = 0; i < m; i++)
     {
-        cout << -1 << endl;
+        if (!col[i])
+        {
+            for (int j = 0; j < n; j++)
+            {
+                c[j][i] = 0;
+            }
+        }
+    }
+
+    vector<vector<int>> ans = c;
+
+    vector<int> r1(n, 0), c1(m, 0);
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (c[i][j])
+            {
+                r1[i] = 1;
+                c1[j] = 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        if (r1[i])
+        {
+            for (int j = 0; j < m; j++)
+            {
+                c[i][j] = 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < m; i++)
+    {
+        if (c1[i])
+        {
+            for (int j = 0; j < n; j++)
+            {
+                c[j][i] = 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (c[i][j] != v[i][j])
+            {
+                N;
+                return;
+            }
+        }
+    }
+
+    Y;
+    for (auto &it : ans)
+    {
+        cout << it << endl;
     }
 }
 int32_t main()

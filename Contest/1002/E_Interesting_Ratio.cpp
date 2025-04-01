@@ -74,58 +74,45 @@ int gcd(int a, int b)
 //------------------------------- GCD Implementation ends ----------------------------------------
 
 //------------------------------- Seive Implementation begins -------------------------------------
-vector<bool> isPrime(1e6 + 1, 1);
+vector<bool> isPrime(1e7 + 1, 1);
+vector<int> primes;
 void calculatePrime()
 {
     isPrime[0] = isPrime[1] = 0;
-    for (int i = 2; i * i <= 1e6; i++)
+    for (int i = 2; i < 1e7 + 1; i++)
         if (isPrime[i])
-            for (int j = i * i; j <= 1e6; j += i)
+        {
+            primes.push_back(i);
+            for (int j = i * i; j < 1e7 + 1; j += i)
                 isPrime[j] = 0;
+        }
 }
 //------------------------------- Seive Implementation ends ---------------------------------------
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
 
-    if (m % n != 0)
-    {
-        cout << -1 << endl;
-        return;
-    }
-    else
-    {
-        m /= n;
-    }
+    int ans = 0;
 
-    int op{0};
-    while (m % 3 == 0)
+    int sz = primes.size();
+
+    for (int i = 1; i <= n / 2; i++)
     {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
+        int maxi = n / i;
+
+        int idx = upper_bound(primes.begin(), primes.end(), maxi) - primes.begin();
+        ans += idx;
     }
 
-    if (m == 1)
-    {
-        cout << op << endl;
-    }
-    else
-    {
-        cout << -1 << endl;
-    }
+    cout << ans << endl;
 }
 int32_t main()
 {
     int tc = 1;
-    // cin >> tc;
-    //   calculatePrime();
+    cin >> tc;
+    calculatePrime();
     while (tc--)
     {
         solve();

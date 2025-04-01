@@ -87,38 +87,42 @@ void calculatePrime()
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
 
-    if (m % n != 0)
+    int j = 0;
+    for (int i = 0; i < 2 * n + 1; i++)
     {
-        cout << -1 << endl;
-        return;
-    }
-    else
-    {
-        m /= n;
-    }
-
-    int op{0};
-    while (m % 3 == 0)
-    {
-        m /= 3;
-        op++;
-    }
-    while (m % 2 == 0)
-    {
-        m /= 2;
-        op++;
-    }
-
-    if (m == 1)
-    {
-        cout << op << endl;
-    }
-    else
-    {
-        cout << -1 << endl;
+        for (int k = 1; k <= n - j; k++)
+        {
+            cout << " " << " ";
+        }
+        if (i == 0 || i == 2 * n)
+        {
+            cout << 0;
+        }
+        else
+        {
+            for (int k = 0; k < j; k++)
+            {
+                cout << k << " ";
+            }
+            int k = j;
+            for (int k = j; k > 0; k--)
+            {
+                cout << k << " ";
+            }
+            cout << 0;
+        }
+        cout << endl;
+        if (i >= n)
+        {
+            j--;
+        }
+        else
+        {
+            j++;
+        }
     }
 }
 int32_t main()
