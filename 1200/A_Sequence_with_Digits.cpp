@@ -1,54 +1,138 @@
+//                                        ॐ हनुमंते नमः
 #include <bits/stdc++.h>
 #define int long long int
-#define tc while (t--)
-#define in cin >>
-#define out cout <<
-#define ret0 return 0;
+#define countOnBit __builtin_popcountll
+#define clz __builtin_clzll
+#define ctz __builtin_ctzll
+#define Y cout << "YES" << endl;
+#define N cout << "NO" << endl;
 using namespace std;
-int max_min_digit(int x)
+
+//----------------------------------------- IO simplifier begins -----------------------------------------
+template <typename T1, typename T2>
+istream &operator>>(istream &in, pair<T1, T2> &p) { return in >> p.first >> p.second; }
+template <typename T>
+istream &operator>>(istream &in, vector<T> &v)
 {
-    int max = INT_MIN, min = INT_MAX, t1;
-    while (x != 0)
+    for (auto &x : v)
+        in >> x;
+    return in;
+}
+template <typename T1, typename T2>
+ostream &operator<<(ostream &out, const pair<T1, T2> &p) { return out << p.first << ' ' << p.second; }
+template <typename T>
+ostream &operator<<(ostream &out, const vector<T> &v)
+{
+    for (const auto &x : v)
+        out << x << ' ';
+    return out;
+}
+//----------------------------------------- IO simplifier ends -------------------------------------------
+
+//---------------------------- Modular Arithematic Implementation begins ---------------------------------
+int mod_pow(int a, int n, int m)
+{
+    int res = 1;
+    while (n)
     {
-        if (max == 9 && min == 0)
+        if (n & 1)
         {
-            break;
+            res = ((res % m) * (a % m)) % m;
+            n--;
         }
-        t1 = x % 10;
-        x = x / 10;
-        if (max < t1)
-        {
-            max = t1;
-        }
-        if (min > t1)
-        {
-            min = t1;
-        }
+        a = ((a % m) * (a % m)) % m;
+        n /= 2;
     }
-    return max * min;
+    return res;
+}
+int mod_mul(int a, int b, int m)
+{
+    return ((a % m) * (b % m)) % m;
+}
+int mod_add(int a, int b, int m)
+{
+    return ((a % m) + (b % m)) % m;
+}
+int mod_sub(int a, int b, int m)
+{
+    return ((a % m) - (b % m) + m) % m;
+}
+int mod_div(int a, int b, int m)
+{
+    int mod_inv = mod_pow(b, m - 2, m);
+    return mod_mul(a, mod_inv, m);
+}
+//--------------------------- Modular Arithematic Implementation ends ---------------------------
+
+//------------------------------- GCD Implementation begins -------------------------------------
+int gcd(int a, int b)
+{
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+//------------------------------- GCD Implementation ends ----------------------------------------
+
+//------------------------------- Seive Implementation begins -------------------------------------
+vector<bool> isPrime(1e7 + 1, 1);
+vector<int> primes;
+void calculatePrime()
+{
+    isPrime[0] = isPrime[1] = 0;
+    for (int i = 2; i <= 1e7 + 1; i++)
+        if (isPrime[i])
+        {
+            primes.push_back(i);
+            for (int j = i * i; j <= 1e7 + 1; j += i)
+                isPrime[j] = 0;
+        }
+}
+//------------------------------- Seive Implementation ends ---------------------------------------
+
+int minD(int n)
+{
+    int mini = 9;
+    while (n)
+    {
+        mini = min(mini, n % 10);
+        n /= 10;
+    }
+    return mini;
+}
+int maxD(int n)
+{
+    int maxi = 0;
+    while (n)
+    {
+        maxi = max(maxi, n % 10);
+        n /= 10;
+    }
+    return maxi;
+}
+void solve()
+{
+    int a, k;
+    cin >> a >> k;
+
+    vector<int> ans;
+    ans.push_back(a);
+
+    while (minD(a) != 0 && ans.size() < k)
+    {
+        ans.push_back(a + minD(a) * maxD(a));
+        a = a + minD(a) * maxD(a);
+    }
+
+    cout << ans.back() << endl;
 }
 int32_t main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    int t;
-    in t;
-    tc
+    int tc = 1;
+    cin >> tc;
+    //   calculatePrime();
+    while (tc--)
     {
-        int a1, k;
-        in a1 >> k;
-        k--;
-        while (k--)
-        {
-            int y = max_min_digit(a1);
-            if (y == 0)
-            {
-                break;
-            }
-            a1 += y;
-        }
-        out a1 << endl;
+        solve();
     }
-    ret0
+    return 0;
 }
